@@ -7,27 +7,24 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.logging.Logger;
+
 @RestController
 @RequestMapping("/api")
 public class UserController {
+
+    private static final Logger logger = Logger.getLogger("user controller");
 
     @Autowired
     UserServices service;
 
     @PostMapping("/register")
-    public String register(@RequestBody Users user){
-        service.register(user);
-        return "ok done";
+    public ResponseEntity<String> register(@RequestBody Users user){
+        // service.register(user);
+        logger.info(user.toString());
+        return new ResponseEntity<>("ok done",HttpStatus.CREATED);
     }
 
-    @GetMapping("/reg")
-    public String registerd(){
-        return "ok done";
-    }
-    @PostMapping("/login")
-    public ResponseEntity<?> login(){
-        return new ResponseEntity<>("ok",HttpStatus.OK);
-    }
     @GetMapping("/")
     public String greet(){
         return "greeting";
